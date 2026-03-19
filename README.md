@@ -204,6 +204,69 @@ COG intervenes at the same point each time: before execution.
 
 ---
 
+## Case Application — Housing Decision (Islington)
+
+This is not a hypothetical.
+
+### Decision
+
+Property deemed suitable for occupation despite ongoing works.
+
+### Signals used
+
+- repairs logged
+- timeline scheduled
+- "not uninhabitable" threshold applied
+
+### Missing context
+
+- works begin before move date
+- plaster drying time required
+- bedrooms and bathroom not usable at point of move-in
+- no void inspection report obtained
+
+### COG Processing
+
+**ContextManager** retrieves:
+- timeline conflict between works and tenancy start
+- absence of void inspection
+- functional usability status of each room
+
+**SignalInterpreter** reclassifies:
+→ not "habitable"
+→ "operationally unready"
+
+**ReasoningBuilder** constructs chain:
+- works overlap with move-in date
+- essential rooms unusable
+- decision made without completed assessment
+
+**HarmAssessor** evaluates:
+- unusable living conditions at point of occupation
+- financial and logistical burden on tenant
+- child impact (bedroom not ready)
+→ flags HIGH RISK
+
+**ExecutionGate:** decision blocked
+→ escalation required before tenancy can proceed
+
+### COG verdict
+
+Decision cannot execute without:
+- confirmed works completion before move-in
+- verified room usability
+- or explicit, documented risk acknowledgement
+
+### Key failure
+
+The decision was made on repair status.
+
+It should have been made on functional usability at point of move-in.
+
+> These are not the same thing. The council treated them as if they were.
+
+---
+
 ## Status
 
 COG is an active system under development.
