@@ -1,6 +1,6 @@
 # COG
 
-COG is a decision-governance layer that restores context before action. It forces systems to interpret signals, expose reasoning, and assess harm before execution, preventing uncontextualised and unsafe decisions in high-stakes environments.
+COG is a modular decision-governance engine. It processes signals through pluggable stages — context, interpretation, reasoning, harm, and execution — producing auditable, constraint-aware decisions. Built for high-stakes environments requiring transparency and control.
 
 ---
 
@@ -14,31 +14,39 @@ Core decision logic, weighting models, and enforcement mechanisms are not public
 
 ---
 
-## The Verse System
+## Core Pipeline
 
-The **COG Verse** is the runtime universe in which one or more COG governance units operate. Each unit (a *cog*) runs an independent, fully auditable governance pipeline. Cogs are registered in a central **Verse**, composed into multi-stage **Pipelines**, and invoked per signal.
+COG operates as a modular decision pipeline composed of five replaceable stages, each fully pluggable via dependency injection:
+
+- **ContextManager** — restores situational awareness (state, constraints, stakeholders)
+- **SignalInterpreter** — annotates signals with intent (type-specific and global handlers)
+- **ReasoningBuilder** — constructs auditable, step-by-step reasoning chains
+- **HarmAssessor** — plugin-based evaluation framework (rules registered externally, not included in this repository)
+- **ExecutionGate** — enforces policy via block/escalate callbacks and control hooks
 
 ```
 Signal ──► ContextManager ──► SignalInterpreter ──► ReasoningBuilder ──► HarmAssessor ──► ExecutionGate ──► Decision
 ```
 
-Every stage is replaceable. Teams plug in domain-specific implementations for any component while inheriting the governance structure.
+---
+
+## Verse Layer
+
+- **CogRegistry / CogComposer / CogPipeline** — orchestrate multi-stage governance pipelines with early termination on BLOCK or ESCALATE
+- **CogVerse** — single top-level system entry point
 
 ---
 
-## Architecture
+## Supporting Components
 
-### Core Pipeline Stages
+- **AuditLogger** — append-only logging with JSONL persistence
+- Structured exceptions for control flow and traceability
+- Test coverage: 66 passing tests
+- Includes example implementations
 
-| Stage | Component | Responsibility |
-|---|---|---|
-| 1 | `ContextManager` | Restores situational awareness before acting |
-| 2 | `SignalInterpreter` | Derives intent and enriches the signal with annotations |
-| 3 | `ReasoningBuilder` | Constructs an auditable chain of reasoning steps |
-| 4 | `HarmAssessor` | Evaluates risk and recommends a verdict (rules not disclosed) |
-| 5 | `ExecutionGate` | Applies final policies and emits the Decision |
+---
 
-### Data Models
+## Data Models
 
 | Model | Purpose |
 |---|---|
@@ -48,14 +56,16 @@ Every stage is replaceable. Teams plug in domain-specific implementations for an
 | `HarmAssessment` | Risk level, identified risks, mitigations, verdict |
 | `Decision` | Final governance outcome — fully auditable |
 
-### Verse Components
+---
 
-| Component | Purpose |
+## Verdicts
+
+| Verdict | Meaning |
 |---|---|
-| `CogVerse` | Top-level entry point; manages the cog registry |
-| `CogRegistry` | Named store of CogEngine instances |
-| `CogComposer` | Assembles cogs into ordered pipelines |
-| `CogPipeline` | Executes a multi-stage governance sequence |
+| `PROCEED` | Safe to execute |
+| `CAUTION` | Execute with additional logging or approval |
+| `ESCALATE` | Hand off to a human or higher authority |
+| `BLOCK` | Refuse execution entirely |
 
 ---
 
@@ -101,17 +111,6 @@ decision = pipeline.run(signal)
 ```
 
 The pipeline halts early if any stage produces a `BLOCK` or `ESCALATE` verdict — the strictest governance wins.
-
----
-
-## Verdicts
-
-| Verdict | Meaning |
-|---|---|
-| `PROCEED` | Safe to execute |
-| `CAUTION` | Execute with additional logging or approval |
-| `ESCALATE` | Hand off to a human or higher authority |
-| `BLOCK` | Refuse execution entirely |
 
 ---
 
