@@ -27,6 +27,60 @@ COG ensures every decision is context-aware, auditable, and accountable before e
 
 ---
 
+## Example — Decision Failure vs COG
+
+### Scenario
+
+A tenant misses a housing appointment.
+
+### Without COG
+
+**Signal received:** missed appointment
+
+→ classified as non-engagement
+→ benefit reduced or sanction applied
+
+No context is considered.
+
+**Reality:**
+- Tenant was in hospital
+- No ability to attend or notify
+- Medical evidence exists
+
+### With COG
+
+**ContextManager** retrieves:
+- hospital admission record
+- prior engagement history
+- vulnerability indicators
+
+**SignalInterpreter** reclassifies:
+→ not non-engagement
+→ constrained non-attendance
+
+**ReasoningBuilder** constructs chain:
+- attendance was not possible
+- no intent to disengage
+- penalty would be disproportionate
+
+**HarmAssessor** evaluates:
+- financial harm
+- housing instability risk
+- vulnerability impact
+→ flags HIGH RISK
+
+**ExecutionGate:** decision blocked
+→ escalation triggered for human review
+
+**Outcome:** no automatic sanction applied. Decision is delayed pending contextual review.
+
+---
+
+> Standard systems act on signals.
+> COG validates whether action is justified before execution.
+
+---
+
 ## Status
 
 COG is an active system under development.
