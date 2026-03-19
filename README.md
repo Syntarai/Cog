@@ -135,6 +135,75 @@ No explanation or context required.
 
 ---
 
+## Example — School Exclusion
+
+### Scenario
+
+A child is flagged for exclusion after repeated behavioural incidents.
+
+### Without COG
+
+**Signal received:** behaviour threshold exceeded
+
+→ exclusion decision triggered
+→ child removed from school
+
+No underlying context reviewed.
+
+**Reality:**
+- Child has an undiagnosed SEN condition
+- Behaviour linked to stress at home
+- No prior assessment or support plan in place
+
+**Consequence:** exclusion at this stage correlates with long-term educational disengagement. The decision takes seconds. The damage takes years.
+
+### With COG
+
+**ContextManager** retrieves:
+- SEN assessment history (incomplete)
+- attendance and behaviour trend
+- home circumstance indicators
+- prior interventions (none recorded)
+
+**SignalInterpreter** reclassifies:
+→ distress signal, not conduct failure
+→ support need, not disciplinary case
+
+**ReasoningBuilder** constructs chain:
+- no prior support was offered
+- behaviour is consistent with unmet need
+- exclusion without assessment breaches duty of care
+
+**HarmAssessor** evaluates:
+- educational continuity risk
+- long-term disengagement probability
+- safeguarding exposure
+→ flags CRITICAL RISK
+
+**ExecutionGate:** decision blocked
+→ mandatory assessment required before any exclusion can proceed
+
+**Outcome:** no exclusion applied. Child referred for SEN assessment and pastoral support.
+
+---
+
+> The system was about to permanently alter a child's trajectory based on a behaviour count.
+> COG required justification first.
+
+---
+
+## Pattern
+
+Across domains, decision failure follows the same structure:
+
+- signals interpreted without context
+- thresholds applied without reasoning
+- actions executed without accountability
+
+COG intervenes at the same point each time: before execution.
+
+---
+
 ## Status
 
 COG is an active system under development.
