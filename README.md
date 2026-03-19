@@ -81,6 +81,60 @@ No context is considered.
 
 ---
 
+## Example — Automated Decision vs COG (AI / Risk Flagging)
+
+### Scenario
+
+An automated system flags an individual as "high risk" based on pattern matching.
+
+### Without COG
+
+**Signal received:** risk score above threshold
+
+→ individual restricted or denied access
+→ decision executed automatically
+
+No explanation or context required.
+
+**Reality:**
+- Pattern triggered by incomplete or outdated data
+- No recent behavioural indicators
+- No human review prior to action
+
+### With COG
+
+**ContextManager** retrieves:
+- data recency
+- source reliability
+- recent behaviour
+- prior decisions
+
+**SignalInterpreter** reclassifies:
+→ weak signal (low confidence, incomplete data)
+
+**ReasoningBuilder** constructs chain:
+- data is outdated
+- no corroborating indicators
+- threshold triggered without sufficient context
+
+**HarmAssessor** evaluates:
+- reputational harm
+- access restriction impact
+- false positive risk
+→ flags HIGH RISK (false positive)
+
+**ExecutionGate:** decision blocked
+→ escalation to human review
+
+**Outcome:** no automatic restriction applied. Decision requires verification before action.
+
+---
+
+> Standard systems execute based on thresholds.
+> COG validates whether the decision is justified before execution.
+
+---
+
 ## Status
 
 COG is an active system under development.
