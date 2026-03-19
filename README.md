@@ -2,6 +2,29 @@
 
 COG is a modular decision-governance engine. It processes signals through pluggable stages — context, interpretation, reasoning, harm, and execution — producing auditable, constraint-aware decisions. Built for high-stakes environments requiring transparency and control.
 
+> COG does not optimise decisions.
+> It validates whether they should occur at all.
+
+---
+
+## Why COG
+
+Most systems act on signals without context.
+
+COG enforces a structured decision process:
+
+```
+signal → context → reasoning → harm → execution
+```
+
+This prevents:
+
+- decisions made on incomplete information
+- untraceable or unjustified outcomes
+- harm caused by speed without judgement
+
+COG ensures every decision is context-aware, auditable, and accountable before execution.
+
 ---
 
 ## Status
